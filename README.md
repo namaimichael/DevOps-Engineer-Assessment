@@ -22,29 +22,6 @@ This repository contains solutions for the technical assessment, showcasing my s
 
 ---
 
-## Section 1: General Knowledge
-- **Context**:
-  This section addresses high-level DevOps concepts, including designing scalable systems, centralized logging, and secure CI/CD pipelines.
-  
-- **Solutions**:
-  - [`self-healing-service.md`](Section1-General-Knowledge/self-healing-service.md): A detailed explanation of designing a self-healing distributed service using Kubernetes health probes, retries, and circuit breakers.
-  - [`centralized-logging.md`](Section1-General-Knowledge/centralized-logging.md): A design for implementing centralized logging with tools like ELK Stack or Loki, suitable for microservices architecture.
-
----
-
-## Section 2: Coding Challenges
-- **Context**:
-  This section includes practical coding tasks to demonstrate scripting, Python programming, and containerization skills.
-  
-- **Solutions**:
-  - [`prometheus_exporter.py`](Section2-Coding-Challenges/prometheus_exporter.py): A Python-based Prometheus exporter for RabbitMQ, exposing queue metrics like `messages_ready` and `messages_unacknowledged`.
-  - [`restart_laravel.sh`](Section2-Coding-Challenges/restart_laravel.sh): A Bash script that monitors CPU usage and restarts the Laravel backend service when usage exceeds 80%.
-  - [`Dockerfile`](Section2-Coding-Challenges/Dockerfile): A Dockerfile for containerizing a Laravel application with PHP, Composer, and essential dependencies.
-
----
-
-## Section Details
-
 ### 1. **Section1-General-Knowledge**
 - **Context**:
   This section addresses high-level DevOps concepts and system design, focusing on centralized logging and self-healing distributed services.
