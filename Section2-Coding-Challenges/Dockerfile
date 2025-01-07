@@ -1,7 +1,7 @@
-# Use the official PHP 8.2 FPM image as the base
-FROM php:8.2-fpm
+# Stage 1: Base Image for Building Dependencies
+FROM php:8.2-fpm as build
 
-# Install dependencies
+# Install required dependencies
 RUN apt-get update && apt-get install -y \
     git \
     zip \
@@ -14,20 +14,35 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set the working directory inside the container
+# Set working directory
 WORKDIR /var/www
 
-# Copy the application files
+# Copy application files
 COPY . .
 
-# Install application dependencies
+# Install dependencies using Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
+---
+
+# Stage 2: Production Environment
+FROM php:8.2-fpm
+
+# Copy PHP extensions from build stage
+COPY --from=build /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+COPY --from=build /usr/local/etc/php/ /usr/local/etc/php/
+
+# Set working directory
+WORKDIR /var/www
+
+# Copy the optimized application from the build stage
+COPY --from=build /var/www /var/www
+
+# Set proper permissions
 RUN chown -R www-data:www-data /var/www
 
-# Expose the default port
+# Expose default PHP-FPM port
 EXPOSE 9000
 
-# Run the PHP-FPM process
+# Run PHP-FPM
 CMD ["php-fpm"]
